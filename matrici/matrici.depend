@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1578471273 source:c:\users\zaboz\documents\proiecte\matrici\main.cpp
+	<iostream>
+	<fstream>
+
+1578671732 source:c:\users\zaboz\onedrive\desktop\matrici\main.cpp
+	<iostream>
+	<fstream>
+	<cstring>
+	<winbgim.h>
+
+1579022312 source:d:\new\matrici\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstring>
+	<winbgim.h>
+	"wtypes.h"
+
+1579030401 source:e:\info\matrici\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstring>
+	<winbgim.h>
+	<cstdlib>
+	<ctime>
+	"wtypes.h"
+
