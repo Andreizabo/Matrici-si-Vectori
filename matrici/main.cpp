@@ -29,7 +29,7 @@ using namespace std;
 
 char erori[NRMAX][NRMAX]; //erori
 
-int screenW,screenH;
+int screenW,screenH; //dimensiuni ecran
 
 int width = 350,height = 800; //marimile ferestrei principale
 
@@ -71,23 +71,23 @@ struct coordonateVect {
     int x1,x2,y1,y2;
 }CoordVect[NRMAX];
 
-void changemen(int a);
+void changemen(int a); // schimba meniul
 
-TIP putereScalar(TIP x, int k);
+TIP putereScalar(TIP x, int k); // calculeaza un numar la o putere data
 
-int putereMinusUnu(int k);
+int putereMinusUnu(int k); // calculeaza -1 la o putere
 
-void initErori();
+void initErori(); // initializeaza erorile
 
-void square(int x1,int y1,int x2, int y2);
+void square(int x1,int y1,int x2, int y2); // deseneaza un patrat
 
-void citesteInModGraficNR(int nr, int x, int y, int culoareText, int m);
+void citesteInModGraficNR(int nr, int x, int y, int culoareText, int m); // citire dintr-o fereastra grafica de double, rezultatule e pus in variabila globala "scalar", si se schimba la final meniul in m
 
-void citesteInModGraficNRint(int nr, int x, int y, int culoareText, int m);
+void citesteInModGraficNRint(int nr, int x, int y, int culoareText, int m); // citire dintr-o fereastra grafica de int, rezultatule e pus in variabila globala "scalar", si se schimba la final meniul in m
 
-void citesteInModGraficNRspecific(int nr, int x, int y, int culoareText, int m, TIP& numar);
+void citesteInModGraficNRspecific(int nr, int x, int y, int culoareText, int m, TIP& numar); // citire dintr-o fereastra grafica de double, rezultatule e pus in variabila numar
 
-char* intToString(TIP x)
+char* intToString(TIP x) // converteste un numar double in char*
 {
     char* buffer = (char*) malloc(256);
 
@@ -96,18 +96,18 @@ char* intToString(TIP x)
     return buffer;
 }
 
-TIP maxim(TIP a, TIP b)
+TIP maxim(TIP a, TIP b) // maxim intre 2 numere a si b
 {
     return (a > b) ? a : b;
 }
 
-struct matrice {
+struct matrice { // matrice
     TIP elemente[NRMAX][NRMAX];
     int nrLinii,nrColoane;
     int id;
 
-    bool selected = false;
-    bool deleteme = false;
+    bool selected = false; // daca a fost selectata pentru o operatie
+    bool deleteme = false; // daca trebuie stearsa
 
     matrice()
     {
@@ -169,16 +169,16 @@ struct matrice {
     TIP sumaDeasupraDS();
 };
 
-matrice matriciCreate[NRMAX],matriciSelectate[NRMAX],matriciNuSterge[NRMAX];
+matrice matriciCreate[NRMAX],matriciSelectate[NRMAX],matriciNuSterge[NRMAX]; // matricile curente / matricile selectate acum / matricile care NU vor fi sterse in algoritmul de stergere
 
-struct vect
+struct vect // vector
 {
     TIP elemente[NRMAX];
     int nrElemente;
     int id;
 
-    bool selected = false;
-    bool deleteme = false;
+    bool selected = false; // daca a fost selectat pentru o operatie
+    bool deleteme = false; // daca trebuie sters
 
     vect()
     {
@@ -217,23 +217,23 @@ struct vect
     void interschimbare(char mode);
 };
 
-vect vectoriCreati[NRMAX],vectoriSelectati[NRMAX],vectoriNuSterge[NRMAX];
+vect vectoriCreati[NRMAX],vectoriSelectati[NRMAX],vectoriNuSterge[NRMAX]; // vectori curenti / vectori selectati acum / vectori care NU vor fi stersi in algoritmul de stergere
 
-void afisareMeniu(int x);
+void afisareMeniu(int x); // afiseaza meniul, adica toate butoanele din meniul curent din fereastra din stanga
 
-void afisareMatrici();
+void afisareMatrici(); // afiseaza toate matricile care exista acum
 
-void afisareVectori();
+void afisareVectori(); // afiseaza toti vectorii care exista acum
 
-void adaugaMatrice(matrice& m);
+void adaugaMatrice(matrice& m); // adauga o matrice in matriciCreate
 
-void adaugaVector(vect& v);
+void adaugaVector(vect& v); // adauga un vector in vectoriCreati
 
-void stergeMatrice(int x);
+void stergeMatrice(int x); // sterge o matrice din matriciCreate
 
-void stergeVector(int x);
+void stergeVector(int x); // sterge un vector din vectoriCreati
 
-//functii animate vectori
+//functii animatie vectori
 
 void afisText_final_suma(TIP s);
 void afisText_intermediar_suma(TIP s);
@@ -288,8 +288,8 @@ void vect_ordonat(int n, TIP V[NRMAX]);
 void program_final_sortare_prin_interschimbare(vect v, bool crescator);
 
 
-struct button {
-    int x1,x2,y1,y2;
+struct button { // buton
+    int x1,x2,y1,y2; // coordonate buton
     char text[NRMAX];
     int id;
 
@@ -308,7 +308,7 @@ struct button {
         id = k;
     }
 
-    bool didIPress(int a,int b,int men)
+    bool didIPress(int a,int b,int men) // functie care verifica daca am apasat pe un anumit buton
     {
         if(getcurrentwindow() != 0) return false;
         if(men == id/10)
@@ -318,7 +318,7 @@ struct button {
         }
         else return false;
     }
-    void onClick()
+    void onClick() // functie care retine actiunile pe care le face fiecare buton in functie de ID, si in momentul apasarii realizeaza operatia corespunzatoare
     {
         cleardevice();
         y_Offset = 0;
@@ -1614,9 +1614,10 @@ struct button {
                     suma = matriciSelectate[0].sumaDP();
                     initwindow(width,100,"Suma",spatiustd,height - 200 + spatiustd,false,false);
                     char txt[NRMAX];
-                    strcpy(txt,"Suma elementelor de pe diagonala principala este:");
-                    outtextxy(25,25,txt);
-                    strcpy(txt,intToString(suma));
+                    strcpy(txt,"Suma elementelor de pe diagonala principala");
+                    outtextxy(10,25,txt);
+                    strcpy(txt,"este ");
+                    strcat(txt,intToString(suma));
                     outtextxy(width/2,50,txt);
                     char tasta;
                     do
@@ -1665,9 +1666,10 @@ struct button {
                     suma = matriciSelectate[0].sumaSubDP();
                     initwindow(width,100,"Suma",spatiustd,height - 200 + spatiustd,false,false);
                     char txt[NRMAX];
-                    strcpy(txt,"Suma elementelor de sub diagonala principala este:");
-                    outtextxy(25,25,txt);
-                    strcpy(txt,intToString(suma));
+                    strcpy(txt,"Suma elementelor de sub diagonala principala");
+                    outtextxy(10,25,txt);
+                    strcpy(txt,"este ");
+                    strcat(txt,intToString(suma));
                     outtextxy(width/2,50,txt);
                     char tasta;
                     do
@@ -1716,9 +1718,10 @@ struct button {
                     suma = matriciSelectate[0].sumaDeasupraDP();
                     initwindow(width,100,"Suma",spatiustd,height - 200 + spatiustd,false,false);
                     char txt[NRMAX];
-                    strcpy(txt,"Suma elementelor de deasupra diagonalei principale este:");
-                    outtextxy(25,25,txt);
-                    strcpy(txt,intToString(suma));
+                    strcpy(txt,"Suma elementelor de deasupra diagonalei principale");
+                    outtextxy(5,25,txt);
+                    strcpy(txt,"este ");
+                    strcat(txt,intToString(suma));
                     outtextxy(width/2,50,txt);
                     char tasta;
                     do
@@ -1767,9 +1770,10 @@ struct button {
                     suma = matriciSelectate[0].sumaDS();
                     initwindow(width,100,"Suma",spatiustd,height - 200 + spatiustd,false,false);
                     char txt[NRMAX];
-                    strcpy(txt,"Suma elementelor de pe diagonala secundara este:");
-                    outtextxy(25,25,txt);
-                    strcpy(txt,intToString(suma));
+                    strcpy(txt,"Suma elementelor de pe diagonala secundara");
+                    outtextxy(10,25,txt);
+                    strcpy(txt,"este ");
+                    strcat(txt,intToString(suma));
                     outtextxy(width/2,50,txt);
                     char tasta;
                     do
@@ -1818,9 +1822,10 @@ struct button {
                     suma = matriciSelectate[0].sumaSubDS();
                     initwindow(width,100,"Suma",spatiustd,height - 200 + spatiustd,false,false);
                     char txt[NRMAX];
-                    strcpy(txt,"Suma elementelor de sub diagonala secundara este:");
-                    outtextxy(25,25,txt);
-                    strcpy(txt,intToString(suma));
+                    strcpy(txt,"Suma elementelor de sub diagonala secundara");
+                    outtextxy(10,25,txt);
+                    strcpy(txt,"este ");
+                    strcat(txt,intToString(suma));
                     outtextxy(width/2,50,txt);
                     char tasta;
                     do
@@ -1869,9 +1874,10 @@ struct button {
                     suma = matriciSelectate[0].sumaDeasupraDS();
                     initwindow(width,100,"Suma",spatiustd,height - 200 + spatiustd,false,false);
                     char txt[NRMAX];
-                    strcpy(txt,"Suma elementelor de deasupra diagonalei secundare este:");
-                    outtextxy(25,25,txt);
-                    strcpy(txt,intToString(suma));
+                    strcpy(txt,"Suma elementelor de deasupra diagonalei secundare");
+                    outtextxy(5,25,txt);
+                    strcpy(txt,"este ");
+                    strcat(txt,intToString(suma));
                     outtextxy(width/2,50,txt);
                     char tasta;
                     do
@@ -2343,7 +2349,7 @@ struct button {
         }
     }
 
-    void show()
+    void show() // afiseaza butonul
     {
         if(id == 11232 || id == 11222 || id == 11242 || id == 11252 || id == 11262 || id == 11272 || id == 11312 || id == 11342 || id == 11332 || id == 11352)
         {
@@ -2370,17 +2376,17 @@ struct button {
 
 button butoane[NRMAX*2];
 
-void adaugaButon(button b);
+void adaugaButon(button b); // adauga un buton creat local in butoane[]
 
-void adaugaButonARG(int x1, int y1, int x2, int y2, char t[NRMAX], int k);
+void adaugaButonARG(int x1, int y1, int x2, int y2, char t[NRMAX], int k); // adauga un buton in butoane[] cu toate argumentele necesare
 
-void adaugaButonARGauto(char t[NRMAX], int k);
+void adaugaButonARGauto(char t[NRMAX], int k); // adauga un buton in butoane[], si il plaseaza sub ultimul buton creat
 
-void whatPress(int a,int b,int men,int cw);
+void whatPress(int a,int b,int men,int cw); // verifica pe ce am apasat
 
-void initButoane();
+void initButoane(); // creeaza toate butoanele
 
-void scroll(int x, int y, int xx, int yy, int w);
+void scroll(int x, int y, int xx, int yy, int w); // decaleaza imaginea din fereastra w
 
 
 int main()
@@ -2970,7 +2976,7 @@ void whatPress(int a, int b, int men, int cw)
                     vectoriSelectati[nrVectoriSelectati++] = vectoriCreati[i];
                 }
                 else if(vectoriCreati[i].selected == true) {
-                    vectoriSelectati[i].selected = false;
+                    vectoriCreati[i].selected = false;
                     trebuie_selectateV++;
                     nrVectoriSelectati--;
                 }
@@ -3671,8 +3677,7 @@ void vect::insertElement(TIP x, int k)
     for(int i = vectoriCreati[id].nrElemente - 1; i > k; i--)
         vectoriCreati[id].elemente[i] = vectoriCreati[id].elemente[i-1];
     vectoriCreati[id].elemente[k] = x;
-    CoordVect[id].x2 = CoordVect[id].x1 + nrElemente * boxSize;
-    CoordVect[id].y2 = CoordVect[id].y1 + boxSize;
+    CoordVect[id].x2 += boxSize;
 }
 
 void vect::bubble(char mode)
@@ -4011,7 +4016,7 @@ void program_final_desenare_vector()
 
 void mutare_pozitie_dreapta_inserare_element(int poz1, int n, TIP V2[NRMAX])
 {
-    initwindow(1300,600,"Insertie",0,0,false,false);
+    //initwindow(1300,600,"Insertie",0,0,false,false);
     int a[NRMAX],b[NRMAX];
     for(int i=1; i<poz1; i++)
     {
@@ -4055,8 +4060,8 @@ void vector_rezultat_inserare_element(int n, TIP V[NRMAX])
         rectangle(a[i]+10,100,b[i],200);
         outtextxy(100*i+50,150,intToString(V[i]));
     }
-
-    Sleep(waitTime);
+    getch();
+    //Sleep(waitTime);
     setcurrentwindow(0);
     closegraph(inputWinId++);
 }
@@ -4074,7 +4079,7 @@ void program_final_inserare_element(vect v, TIP element, int poz)
     if(poz < 0) poz = 1;
     else
     {
-        for(int j=n; j >= poz; j--)
+        for(int j=n+1; j >= poz; j--)
         {
             mutare_pozitie_dreapta_inserare_element(j, n, V2);
             V[j+1]=V[j];
@@ -4092,7 +4097,7 @@ void afisText_pozitionare_bubble_sort(int i)
 }
 void afisText_swap_bubble_sort(int i)
 {
-    bgiout << "SE INTERSCHIMBA   "<<i <<" cu  "<<i+1;
+    bgiout << "SE INTERSCHIMBA   "<<i <<" cu "<<i+1;
     outstreamxy(30, 400);
 }
 void afisText_vect_ord_bubble_sort()
@@ -4395,7 +4400,7 @@ void program_final_sortare_prin_insertie(vect v, bool crescator)
 
 void afisText_pozitionare_interschimbare(int i, int j)
 {
-    bgiout << "ELEMENTELE   "<<i<<" si "<<j<<" ce trebuie INTERSCHIMBATE se col cu ROSU";
+    bgiout << "ELEMENTELE   "<<i<<" si "<<j<<" ce trebuie INTERSCHIMBATE se coloreaza cu ROSU";
     outstreamxy(30, 400);
 }
 void afisText_swap_interschimbare(int i, int j)

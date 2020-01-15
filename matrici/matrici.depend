@@ -27,3 +27,13 @@
 	<ctime>
 	"wtypes.h"
 
+1579122414 source:c:\users\zaboz\documents\github\matrici-si-vectori\matrici\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstring>
+	<winbgim.h>
+	<cstdlib>
+	<ctime>
+	"wtypes.h"
+
