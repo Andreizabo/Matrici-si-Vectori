@@ -3,11 +3,15 @@
 	<iostream>
 	<fstream>
 
-1578671732 source:c:\users\zaboz\onedrive\desktop\matrici\main.cpp
+1579160923 source:c:\users\zaboz\onedrive\desktop\matrici\main.cpp
 	<iostream>
 	<fstream>
+	<string>
 	<cstring>
 	<winbgim.h>
+	<cstdlib>
+	<ctime>
+	"wtypes.h"
 
 1579022312 source:d:\new\matrici\main.cpp
 	<iostream>
@@ -28,6 +32,26 @@
 	"wtypes.h"
 
 1579122414 source:c:\users\zaboz\documents\github\matrici-si-vectori\matrici\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstring>
+	<winbgim.h>
+	<cstdlib>
+	<ctime>
+	"wtypes.h"
+
+1579161642 source:g:\ip proiect final\matrici\main.cpp
+	<iostream>
+	<fstream>
+	<string>
+	<cstring>
+	<winbgim.h>
+	<cstdlib>
+	<ctime>
+	"wtypes.h"
+
+1579161642 source:d:\ip proiect final\matrici\main.cpp
 	<iostream>
 	<fstream>
 	<string>

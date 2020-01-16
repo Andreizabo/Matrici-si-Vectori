@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "wtypes.h"
-#define NRMAX 101
+#define NRMAX 51
 #define TIP double
 #define BLACK	0
 #define BLUE	1
@@ -218,6 +218,8 @@ struct vect // vector
 };
 
 vect vectoriCreati[NRMAX],vectoriSelectati[NRMAX],vectoriNuSterge[NRMAX]; // vectori curenti / vectori selectati acum / vectori care NU vor fi stersi in algoritmul de stergere
+
+void resizeBox();
 
 void afisareMeniu(int x); // afiseaza meniul, adica toate butoanele din meniul curent din fereastra din stanga
 
@@ -2374,7 +2376,7 @@ struct button { // buton
     }
 };
 
-button butoane[NRMAX*2];
+button butoane[NRMAX*10];
 
 void adaugaButon(button b); // adauga un buton creat local in butoane[]
 
@@ -2409,6 +2411,7 @@ int main()
     initwindow(width * 2, height, "Vectori", width*3 + spatiustd, spatiustd); // 2
     while(meniucrt)
     {
+        resizeBox();
         afisareMeniu(meniucrt);
         afisareMatrici();
         afisareVectori();
@@ -2764,6 +2767,33 @@ void square(int x1,int y1,int x2, int y2)
     line(x1,y2,x2,y2);
 }
 
+void resizeBox()
+{
+    int marimeMax = 0;
+    for(int i = 0; i < nrMatrici; i++)
+        for(int j = 0; j < matriciCreate[i].nrLinii; j++)
+            for(int k = 0; k < matriciCreate[i].nrColoane; k++)
+                if(strlen(intToString(matriciCreate[i].elemente[j][k])) > marimeMax) marimeMax = strlen(intToString(matriciCreate[i].elemente[j][k]));
+    for(int i = 0; i < nrVectori; i++)
+        for(int j = 0; j < vectoriCreati[i].nrElemente; j++)
+            if(strlen(intToString(vectoriCreati[i].elemente[j])) > marimeMax) marimeMax = strlen(intToString(vectoriCreati[i].elemente[j]));
+    boxSize = 50 + 5*marimeMax;
+    for(int i = 0; i < nrMatrici; i++)
+    {
+        CoordMat[matriciCreate[i].id].x1 = boxSize;
+        CoordMat[matriciCreate[i].id].y1 = CoordMat[matriciCreate[i].id-1].y2 + boxSize;
+        CoordMat[matriciCreate[i].id].x2 = CoordMat[matriciCreate[i].id].x1 + matriciCreate[i].nrColoane * boxSize;
+        CoordMat[matriciCreate[i].id].y2 = CoordMat[matriciCreate[i].id].y1 + matriciCreate[i].nrLinii * boxSize;
+    }
+    for(int i = 0; i < nrVectori; i++)
+    {
+        CoordVect[vectoriCreati[i].id].x1 = boxSize;
+        CoordVect[vectoriCreati[i].id].y1 = CoordVect[vectoriCreati[i].id - 1].y2 + boxSize;
+        CoordVect[vectoriCreati[i].id].x2 = CoordVect[vectoriCreati[i].id].x1 + vectoriCreati[i].nrElemente * boxSize;
+        CoordVect[vectoriCreati[i].id].y2 = CoordVect[vectoriCreati[i].id].y1 + boxSize;
+    }
+}
+
 void afisareMeniu(int x)
 {
     //initwindow(width,height,"Matrici si vectori",spatiustd,spatiustd);
@@ -2809,8 +2839,8 @@ void afisareMatrici()
     }
     if(nrMatrici > 0) {
         setcolor(LIGHTBLUE);
-        square(x_OffsetM, y_OffsetM, x_OffsetM + xmax + spatiustd * 5,y_OffsetM + ymax + spatiustd *2);
-        square(x_OffsetM + spatiustd/10,y_OffsetM + spatiustd/10,x_OffsetM + xmax + spatiustd * 5 - spatiustd/10,y_OffsetM + ymax + spatiustd *2 - spatiustd/10);
+        square(x_OffsetM, y_OffsetM, x_OffsetM + xmax + boxSize * 4,y_OffsetM + ymax + spatiustd *2);
+        square(x_OffsetM + spatiustd/10,y_OffsetM + spatiustd/10,x_OffsetM + xmax + boxSize * 4 - spatiustd/10,y_OffsetM + ymax + spatiustd *2 - spatiustd/10);
     }
     setcolor(WHITE);
     for(int i = 0; i < nrMatrici; i++)
@@ -2831,8 +2861,8 @@ void afisareVectori()
     }
     if(nrVectori > 0) {
         setcolor(RED);
-        square(x_OffsetV, y_OffsetV, x_OffsetV + xmax + spatiustd * 5,y_OffsetV + ymax + spatiustd *2);
-        square(x_OffsetV + spatiustd/10,y_OffsetV + spatiustd/10,x_OffsetV + xmax + spatiustd * 5 - spatiustd/10,y_OffsetV + ymax + spatiustd *2 - spatiustd/10);
+        square(x_OffsetV, y_OffsetV, x_OffsetV + xmax + boxSize * 4,y_OffsetV + ymax + spatiustd *2);
+        square(x_OffsetV + spatiustd/10,y_OffsetV + spatiustd/10,x_OffsetV + xmax + boxSize * 4 - spatiustd/10,y_OffsetV + ymax + spatiustd *2 - spatiustd/10);
     }
     setcolor(WHITE);
     for(int i = 0; i < nrVectori; i++)
